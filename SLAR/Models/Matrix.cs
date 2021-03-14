@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 
 namespace SLAR.Models
 {
+    [Serializable]
     public class Matrix
     {
-        int n { get; set; }
-        int m { get; set; }
+        public int n { get; set; }
+        public int m { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
 
-        private double[][] matrix;
+        private int[][] matrix;
 
         public Matrix()
         {
@@ -27,7 +30,7 @@ namespace SLAR.Models
             Initialize();
         }
 
-        public Matrix(int _n, int _m, double value) : this(_n, _m)
+        public Matrix(int _n, int _m, int value) : this(_n, _m)
         {
             for (int i = 0; i < n; i++)
             {
@@ -40,10 +43,11 @@ namespace SLAR.Models
 
         private void Initialize()
         {
-            matrix = new double[n][];
+            id = Convert.ToInt32(Guid.NewGuid());
+            matrix = new int[n][];
             for (int i = 0; i < n; i++)
             {
-                matrix[i] = new double[m];
+                matrix[i] = new int[m];
             }
         }
 
@@ -124,22 +128,27 @@ namespace SLAR.Models
             {
                 for (int j = 0; j < m; j++)
                 {
-                    matrix[i][j] = Convert.ToDouble(text[index]);
+                    matrix[i][j] = Convert.ToInt32(text[index]);
                     index++;
                 }
             }
         }
 
-        public void FillWithRandomValues(double min = 0, double max = 10000000)
+        public void FillWithRandomValues(int min = 0, int max = 10000000)
         {
             Random random = new Random();
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < m; j++)
                 {
-                    matrix[i][j] = random.NextDouble() * (max - min) + min;
+                    matrix[i][j] = random.Next(min, max);
                 }
             }
+        }
+
+        public int GetId()
+        {
+            return id;
         }
     }
 }

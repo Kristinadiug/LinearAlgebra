@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SLAR.Models
 {
-    class Vector: Matrix
+    public class Vector: Matrix
     {
         public Vector(int n) : base(n, 1) { }
 
